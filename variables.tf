@@ -31,7 +31,7 @@ variable "tags" {
 }
 
 variable "subnets" {
-  description = "Map of subnets to create"
+  description = "Map of subnets to create (Mandatory)"
   type = map(object({
     address_prefixes  = list(string)
     service_endpoints = optional(list(string), [])
@@ -39,7 +39,7 @@ variable "subnets" {
 }
 
 variable "vnet_peerings" {
-  description = "Map of VNet peerings to create"
+  description = "Map of VNet peerings to create (Optional)"
   type = map(object({
     remote_vnet_id               = string
     allow_virtual_network_access = optional(bool, true)
@@ -47,5 +47,6 @@ variable "vnet_peerings" {
     allow_gateway_transit        = optional(bool, false)
     use_remote_gateways          = optional(bool, false)
   }))
+  default = {} # This makes the peerings optional.
 }
 

@@ -25,7 +25,8 @@ resource "azurerm_subnet" "subnets" {
 }
 
 resource "azurerm_virtual_network_peering" "peerings" {
-  for_each                     = var.vnet_peerings
+  for_each = var.vnet_peerings
+
   name                         = each.key
   resource_group_name          = var.resource_group_name
   virtual_network_name         = azurerm_virtual_network.vnet.name
