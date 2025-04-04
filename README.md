@@ -1,5 +1,4 @@
-# template-terraform
-Template repository for all terraform module repositories
+# terraform code azure vnet and peering
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
