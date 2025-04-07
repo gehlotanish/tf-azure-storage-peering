@@ -28,7 +28,7 @@ No modules.
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to the resources | `map(string)` | `{}` | no |
 | <a name="input_vnet_address_space"></a> [vnet\_address\_space](#input\_vnet\_address\_space) | Address space for the virtual network | `list(string)` | n/a | yes |
 | <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | Name of the virtual network | `string` | n/a | yes |
-| <a name="input_vnet_peerings"></a> [vnet\_peerings](#input\_vnet\_peerings) | Map of VNet peerings to create (Optional) | <pre>map(object({<br>    remote_vnet_id               = string<br>    allow_virtual_network_access = optional(bool, true)<br>    allow_forwarded_traffic      = optional(bool, false)<br>    allow_gateway_transit        = optional(bool, false)<br>    use_remote_gateways          = optional(bool, false)<br>  }))</pre> | `{}` | no |  
+| <a name="input_vnet_peerings"></a> [vnet\_peerings](#input\_vnet\_peerings) | Map of VNet peerings with directional settings | <pre>map(object({<br>    remote_vnet_id              = string<br>    remote_virtual_network_name = string<br>    remote_resource_group_name  = string<br><br>    local_settings = optional(object({<br>      allow_virtual_network_access = optional(bool)<br>      allow_forwarded_traffic      = optional(bool)<br>      allow_gateway_transit        = optional(bool)<br>      use_remote_gateways          = optional(bool)<br>    }), {})<br><br>    remote_settings = optional(object({<br>      allow_virtual_network_access = optional(bool)<br>      allow_forwarded_traffic      = optional(bool)<br>      allow_gateway_transit        = optional(bool)<br>      use_remote_gateways          = optional(bool)<br>    }), {})<br>  }))</pre> | `{}` | no |  
 ## Outputs
 
 | Name | Description |
@@ -67,12 +67,19 @@ subnets = {
 vnet_peerings = {
   # Example peering:
   # peer1 = {
-  #   remote_vnet_id              = "/subscriptions/12345678/resourceGroups/peer-rg/providers/Microsoft.Network/virtualNetworks/remote-vnet"
-  #   allow_virtual_network_access = true
-  #   allow_forwarded_traffic      = false
-  #   allow_gateway_transit        = false
-  #   use_remote_gateways          = false
+  #  remote_vnet_id              = "/subscriptions/xxxx/resourceGroups/peer-rg/providers/Microsoft.Network/virtualNetworks/remote-vnet"
+  #  remote_virtual_network_name = "remote-vnet"
+  #  remote_resource_group_name  = "peer-rg"
+
+  #  local_settings = {
+  #    allow_gateway_transit = true
+  #  }
+
+  #  remote_settings = {
+  #    allow_gateway_transit = false
+  #  }
   # }
+
 }
 
 ```

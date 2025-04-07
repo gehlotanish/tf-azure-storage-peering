@@ -10,6 +10,6 @@ output "subnet_ids" {
 
 output "peering_ids" {
   description = "IDs of the created VNet peerings"
-  value       = { for k, v in azurerm_virtual_network_peering.peerings : k => v.id }
+  value       = { for k, v in azurerm_virtual_network_peering.local_to_remote : k => v.id }
 }
 

@@ -39,14 +39,25 @@ variable "subnets" {
 }
 
 variable "vnet_peerings" {
-  description = "Map of VNet peerings to create (Optional)"
+  description = "Map of VNet peerings with directional settings"
   type = map(object({
-    remote_vnet_id               = string
-    allow_virtual_network_access = optional(bool, true)
-    allow_forwarded_traffic      = optional(bool, false)
-    allow_gateway_transit        = optional(bool, false)
-    use_remote_gateways          = optional(bool, false)
-  }))
-  default = {} # This makes the peerings optional.
-}
+    remote_vnet_id              = string
+    remote_virtual_network_name = string
+    remote_resource_group_name  = string
 
+    local_settings = optional(object({
+      allow_virtual_network_access = optional(bool)
+      allow_forwarded_traffic      = optional(bool)
+      allow_gateway_transit        = optional(bool)
+      use_remote_gateways          = optional(bool)
+    }), {})
+
+    remote_settings = optional(object({
+      allow_virtual_network_access = optional(bool)
+      allow_forwarded_traffic      = optional(bool)
+      allow_gateway_transit        = optional(bool)
+      use_remote_gateways          = optional(bool)
+    }), {})
+  }))
+  default = {}
+}
