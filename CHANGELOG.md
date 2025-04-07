@@ -1,6 +1,6 @@
-## Unreleased
+## 1.0.0 (2025-04-07)
 
-### Fix
+### Feat
 
-- **fix**: fix code
-- **fixing-tf-code**: modify storage tags
+- **logic**: update peering code
+- fix tf condition
